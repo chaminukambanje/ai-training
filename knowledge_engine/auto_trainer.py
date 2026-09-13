@@ -36,7 +36,7 @@ logger = logging.getLogger("auto_trainer")
 def run_training_cycle(run_number: int = 1):
     logger.info(f"==================================================")
     logger.info(f"Starting Unattended Learning Cycle #{run_number} at {datetime.now().isoformat()}")
-    logger.info(f"Target Domains: Microsoft, Red Hat, Linux, AWS, GitHub, VMware, Ubuntu")
+    logger.info(f"Target Domains: Microsoft, Red Hat, Linux, AWS, GitHub, VMware, Ubuntu, JASMIN, ARCHER, BBC, ZBC, SABC, GOV.UK, GOV.ZW, GOV.ZA")
     logger.info(f"Mode: Unattended Non-Interactive (Default YES)")
     logger.info(f"==================================================")
 

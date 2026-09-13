@@ -33,9 +33,9 @@ DOCUMENTATION_TARGETS = {
         ]
     },
     "redhat": {
-        "domain": "docs.redhat.com",
+        "domain": "access.redhat.com/documentation / docs.redhat.com",
         "search_queries": [
-            "site:docs.redhat.com red hat enterprise linux 9 system administration guide",
+            "site:access.redhat.com/documentation red hat enterprise linux 9 administration guide",
             "site:docs.redhat.com rhel 9 systemd service unit configuration",
             "site:docs.redhat.com rhel 9 selinux managing booleans policies context",
             "site:docs.redhat.com rhel 9 podman rootless containers systemd",
@@ -45,6 +45,8 @@ DOCUMENTATION_TARGETS = {
             "site:docs.redhat.com rhel 9 networkmanager nmcli connection configuration"
         ],
         "seed_urls": [
+            "https://access.redhat.com/documentation/",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9",
             "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/configuring_basic_system_settings/managing-system-services-with-systemctl_configuring-basic-system-settings",
             "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/using_selinux/getting-started-with-selinux_using-selinux",
             "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managing_software_with_the_dnf_tool/index",
@@ -52,24 +54,68 @@ DOCUMENTATION_TARGETS = {
             "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/building_running_and_managing_containers/index"
         ]
     },
-    "linux": {
-        "domain": "kernel.org / archlinux.org / tldp.org",
+    "kernel": {
+        "domain": "docs.kernel.org",
         "search_queries": [
             "site:docs.kernel.org admin-guide sysctl networking tunables",
+            "site:docs.kernel.org admin-guide blockdev lvm md raid",
+            "site:docs.kernel.org admin-guide memory-management sysfs procfs"
+        ],
+        "seed_urls": [
+            "https://docs.kernel.org/",
+            "https://docs.kernel.org/admin-guide/index.html",
+            "https://docs.kernel.org/admin-guide/sysctl/net.html",
+            "https://docs.kernel.org/admin-guide/sysctl/vm.html",
+            "https://docs.kernel.org/admin-guide/perf/index.html"
+        ]
+    },
+    "man7": {
+        "domain": "man7.org/linux/man-pages",
+        "search_queries": [
+            "site:man7.org/linux/man-pages/ linux system calls kernel interfaces",
+            "site:man7.org/linux/man-pages/ systemctl ip nftables mount fstab proc",
+            "site:man7.org/linux/man-pages/ standards posix interfaces"
+        ],
+        "seed_urls": [
+            "https://man7.org/linux/man-pages/",
+            "https://man7.org/linux/man-pages/dir_section_1.html",
+            "https://man7.org/linux/man-pages/dir_section_2.html",
+            "https://man7.org/linux/man-pages/dir_section_5.html",
+            "https://man7.org/linux/man-pages/dir_section_7.html",
+            "https://man7.org/linux/man-pages/dir_section_8.html"
+        ]
+    },
+    "archwiki": {
+        "domain": "wiki.archlinux.org",
+        "search_queries": [
             "site:wiki.archlinux.org systemd journalctl troubleshooting service unit",
             "site:wiki.archlinux.org iproute2 network configuration routing vlan",
             "site:wiki.archlinux.org nftables firewall rules configuration guide",
             "site:wiki.archlinux.org lvm logical volume manager creation expansion",
-            "site:docs.kernel.org admin-guide blockdev lvm md raid",
-            "site:man7.org linux man pages proc sysctl fs ext4"
+            "site:wiki.archlinux.org security hardening firewalls sysctl"
         ],
         "seed_urls": [
-            "https://docs.kernel.org/admin-guide/sysctl/net.html",
-            "https://docs.kernel.org/admin-guide/perf/index.html",
+            "https://wiki.archlinux.org/",
             "https://wiki.archlinux.org/title/Systemd",
             "https://wiki.archlinux.org/title/Network_configuration",
             "https://wiki.archlinux.org/title/Nftables",
-            "https://wiki.archlinux.org/title/LVM"
+            "https://wiki.archlinux.org/title/LVM",
+            "https://wiki.archlinux.org/title/Security"
+        ]
+    },
+    "posix": {
+        "domain": "pubs.opengroup.org",
+        "search_queries": [
+            "site:pubs.opengroup.org/onlinepubs/9699919799/ posix base specifications issue 7 utilities",
+            "site:pubs.opengroup.org posix standard shell execution environment functions",
+            "site:pubs.opengroup.org posix system interfaces header files"
+        ],
+        "seed_urls": [
+            "https://pubs.opengroup.org/",
+            "https://pubs.opengroup.org/onlinepubs/9699919799/",
+            "https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/contents.html",
+            "https://pubs.opengroup.org/onlinepubs/9699919799/functions/contents.html",
+            "https://pubs.opengroup.org/onlinepubs/9699919799/utilities/contents.html"
         ]
     },
     "aws": {
@@ -185,5 +231,93 @@ DOCUMENTATION_TARGETS = {
             "https://docs.archer2.ac.uk/user-guide/storage/",
             "https://docs.archer2.ac.uk/user-guide/parallel/"
         ]
+    },
+    "bbc": {
+        "domain": "bbc.co.uk",
+        "search_queries": [
+            "site:bbc.co.uk news technology science uk world",
+            "site:bbc.co.uk/news uk politics economy climate analysis"
+        ],
+        "seed_urls": [
+            "https://www.bbc.co.uk/news",
+            "https://www.bbc.co.uk/news/uk",
+            "https://www.bbc.co.uk/news/technology",
+            "https://www.bbc.co.uk/news/science-environment",
+            "https://www.bbc.co.uk/news/business",
+            "https://www.bbc.co.uk/news/world"
+        ]
+    },
+    "zbc": {
+        "domain": "zbc.co.zw",
+        "search_queries": [
+            "site:zbcnews.co.zw national news zimbabwe broadcasting corporation",
+            "site:zbc.co.zw radio television programming services news"
+        ],
+        "seed_urls": [
+            "https://zbc.co.zw/",
+            "https://zbcnews.co.zw/",
+            "https://zbc.co.zw/about-us/",
+            "https://zbcnews.co.zw/category/top-stories/",
+            "https://zbcnews.co.zw/category/business/"
+        ]
+    },
+    "sabc": {
+        "domain": "sabc.co.za / sabcnews.com",
+        "search_queries": [
+            "site:sabcnews.com south africa national news governance politics economy",
+            "site:sabc.co.za south african broadcasting corporation public service mandate"
+        ],
+        "seed_urls": [
+            "https://www.sabcnews.com/sabcnews/",
+            "https://www.sabcnews.com/sabcnews/category/south-africa/",
+            "https://www.sabcnews.com/sabcnews/category/business/",
+            "https://www.sabcnews.com/sabcnews/category/africa/",
+            "https://www.sabc.co.za/sabc/about-sabc/"
+        ]
+    },
+    "gov_uk": {
+        "domain": "gov.uk",
+        "search_queries": [
+            "site:gov.uk departments ministries public services guidance digital data technology",
+            "site:gov.uk government policies legislation ukri science innovation",
+            "site:gov.uk visas immigration citizenship residence taxation"
+        ],
+        "seed_urls": [
+            "https://www.gov.uk/",
+            "https://www.gov.uk/government/organisations",
+            "https://www.gov.uk/browse/visas-immigration",
+            "https://www.gov.uk/browse/tax",
+            "https://www.gov.uk/browse/working",
+            "https://www.gov.uk/government/how-government-works"
+        ]
+    },
+    "gov_zw": {
+        "domain": "gov.zw / zim.gov.zw",
+        "search_queries": [
+            "site:zim.gov.zw government ministries departments public services gazette",
+            "site:gov.zw zimbabwe national development strategy nds public notices"
+        ],
+        "seed_urls": [
+            "https://www.zim.gov.zw/",
+            "https://www.zim.gov.zw/index.php/en/government-ministries",
+            "https://www.zim.gov.zw/index.php/en/parastatals",
+            "https://www.zim.gov.zw/index.php/en/media-centre",
+            "https://www.zim.gov.zw/index.php/en/speeches"
+        ]
+    },
+    "gov_za": {
+        "domain": "gov.za",
+        "search_queries": [
+            "site:gov.za south african government departments services acts gazettes",
+            "site:gov.za state of the nation public administration south africa"
+        ],
+        "seed_urls": [
+            "https://www.gov.za/",
+            "https://www.gov.za/about-government/government-system",
+            "https://www.gov.za/services",
+            "https://www.gov.za/documents/constitution",
+            "https://www.gov.za/about-government/contact-directory"
+        ]
     }
 }
+

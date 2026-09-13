@@ -88,12 +88,22 @@ DOMAIN_MAP = {
                 "topic": "CEDA & JASMIN Environment Modules",
                 "q": "How do researchers load atmospheric and climate analysis tools in JASMIN?",
                 "a": "On JASMIN, researchers load pre-configured Python environments and climate analysis software (CDO, NCO, Iris, Cartopy) using Jaspy environment modules:\\n```bash\\nmodule load jaspy\\n```\\nThis configures standardized scientific stacks managed by CEDA."
+            },
+            {
+                "topic": "UK GOV.UK Digital & Public Services",
+                "q": "What is GOV.UK and how are United Kingdom public services and departments organized?",
+                "a": "GOV.UK (https://www.gov.uk) is the central portal for United Kingdom government services and information, managed by the Government Digital Service (GDS). It consolidates all ministerial departments (e.g., Department for Science, Innovation and Technology - DSIT, Home Office, HM Revenue and Customs - HMRC), executive agencies, public bodies, statutory policies, visa and immigration regulations, and taxation guidelines."
+            },
+            {
+                "topic": "BBC British Broadcasting Corporation Mandate",
+                "q": "What is the mission and structure of the British Broadcasting Corporation (BBC)?",
+                "a": "The BBC (bbc.co.uk) is the UK's national public service broadcaster established by Royal Charter. Its public purposes include providing impartial news, supporting learning, and reflecting the UK's nations and regions across BBC News, BBC World Service, BBC iPlayer, and digital technology/science journalism."
             }
         ]
     },
     1: {
         "domain": "vmware_truenas_infrastructure",
-        "description": "VMware ESXi 8.0 Virtualization & TrueNAS ZFS Storage",
+        "description": "VMware ESXi 8.0 Virtualization, TrueNAS Storage & South Africa Governance/SABC",
         "topics": [
             {
                 "topic": "ESXi Promiscuous Mode Port Group",
@@ -106,20 +116,20 @@ DOMAIN_MAP = {
                 "a": "TrueNAS SCALE (192.168.0.47, VMID 76) runs on ESXi with 16 GB allocated RAM, managing ZFS storage pool `pool1`. It exports `/mnt/scratch` and `/mnt/pool1/share02` via NFS for distributed HPC cluster nodes, and stores continuous network packet captures in `/mnt/pool1/network_traffic/raw_pcaps/`."
             },
             {
-                "topic": "Dell PowerEdge R620 Virtualization Host",
-                "q": "What are the hardware specifications of the primary hypervisor host esxi-01.npcsolutions.co.za?",
-                "a": "The primary hypervisor is esxi-01.npcsolutions.co.za (192.168.0.200), a Dell PowerEdge R620 enterprise server equipped with 2x Intel Xeon E5-2660 v2 CPUs (20 cores, 40 logical threads), 240 GB of physical DDR3 ECC RAM, and redundant 10GbE network interfaces attached to vSwitch0 and vSwitch-Mirror."
+                "topic": "South Africa GOV.ZA National Governance",
+                "q": "What is the structure of the South African Government according to gov.za?",
+                "a": "According to official South African Government documentation (gov.za), the Republic of South Africa operates as a constitutional democracy with a three-tier governance system (national, provincial, and local spheres). The government portal (gov.za) provides official access to parliamentary acts, government gazettes, executive departments, citizen services (Department of Home Affairs, SARS), and the State of the Nation Address."
             },
             {
-                "topic": "AI Cortex Server Virtual Hardware",
-                "q": "What are the resource allocations and roles of the ai-cortex-01 virtual machine?",
-                "a": "ai-cortex-01 (192.168.0.235, VMID 108) is provisioned on ESXi with 16 vCPUs, 43 GB RAM (44,032 MB), and 140 GB storage. It hosts the local Ollama LLM runtime on port 11434, the Antigravity (AGY) grounding server on port 8000, and orchestrates distributed Slurm workloads."
+                "topic": "SABC South African Broadcasting Corporation Mandate",
+                "q": "What is the role of the South African Broadcasting Corporation (SABC)?",
+                "a": "The SABC (sabc.co.za / sabcnews.com) is South Africa's public broadcaster, established under the Broadcasting Act. It delivers public service radio and television programming across all 11 official languages of South Africa, providing national news, investigative journalism, educational content, and parliamentary coverage."
             }
         ]
     },
     2: {
         "domain": "linux_security_cloud",
-        "description": "Linux Kernel Administration, Security, and AWS Engineering",
+        "description": "Linux Kernel Administration, Security, AWS Engineering & Zimbabwe Governance/ZBC",
         "topics": [
             {
                 "topic": "Linux Sysctl Network Optimization",
@@ -127,19 +137,14 @@ DOMAIN_MAP = {
                 "a": "To optimize high-throughput Linux network performance:\\n```ini\\nnet.core.rmem_max = 16777216\\nnet.core.wmem_max = 16777216\\nnet.ipv4.tcp_rmem = 4096 87380 16777216\\nnet.ipv4.tcp_wmem = 4096 65536 16777216\\nnet.core.netdev_max_backlog = 50000\\nnet.ipv4.tcp_congestion_control = bbr\\n```\\nApply immediately via `sysctl -p /etc/sysctl.d/99-network-tuning.conf`."
             },
             {
-                "topic": "SELinux Boolean & Context Management",
-                "q": "How do you resolve SELinux permission denials for custom systemd services?",
-                "a": "Inspect denials using `ausearch -m avc -ts recent` or `journalctl -xe`. Check file contexts with `ls -Z`. Restore default contexts using `restorecon -Rv /opt/my-service/`. To permit custom network ports or directories permanently, use `semanage port -a -t http_port_t -p tcp <port>` or `semanage fcontext -a -t <type_t> '/opt/my-service(/.*)?'`."
+                "topic": "Zimbabwe National Governance (gov.zw / zim.gov.zw)",
+                "q": "What is the structure of the Government of Zimbabwe according to official portals (gov.zw / zim.gov.zw)?",
+                "a": "The official portal of the Government of Zimbabwe (zim.gov.zw / gov.zw) coordinates executive ministries, departments, and parastatals under the Constitution of Zimbabwe. Key ministries include Information, Publicity & Broadcasting Services; Finance & Economic Development; Higher & Tertiary Education, Innovation, Science and Technology Development. Official portals publish national development strategies (NDS1), statutory instruments, and government gazettes."
             },
             {
-                "topic": "AWS VPC Least Privilege Security Groups",
-                "q": "How do you enforce least-privilege security group rules in AWS VPC?",
-                "a": "Ensure ingress rules specify exact CIDR ranges (e.g., `192.168.0.0/24` or bastion host security group IDs) rather than `0.0.0.0/0`. Restrict administrative ports (22, 3389) to secure management endpoints, and implement AWS VPC Flow Logs to monitor rejected traffic across network interfaces."
-            },
-            {
-                "topic": "Ubuntu Netplan Multi-NIC Configuration",
-                "q": "How do you configure static routing and dual NICs using Netplan on Ubuntu Server?",
-                "a": "On Ubuntu Server 24.04/26.04, configure `/etc/netplan/01-netcfg.yaml`:\\n```yaml\\nnetwork:\\n  version: 2\\n  ethernets:\\n    ens160:\\n      dhcp4: false\\n      addresses: [192.168.0.235/24]\\n      routes:\\n        - to: default\\n          via: 192.168.0.1\\n      nameservers:\\n        addresses: [192.168.0.1, 1.1.1.1]\\n```\\nApply with `sudo netplan apply`."
+                "topic": "Zimbabwe Broadcasting Corporation (ZBC) Public Role",
+                "q": "What is the Zimbabwe Broadcasting Corporation (ZBC) and what broadcasting services does it provide?",
+                "a": "The Zimbabwe Broadcasting Corporation (ZBC, zbc.co.zw / zbcnews.co.zw) is the national public broadcaster of Zimbabwe, headquartered at Pockets Hill, Highlands, Harare. It operates national television channels (ZBC TV, Jive TV) and major radio stations (Radio Zimbabwe, Power FM, Classic 263, National FM, Khulumani FM, Central Radio) providing news, cultural programming, education, and current affairs in Shona, Ndebele, English, and other recognized languages."
             }
         ]
     },

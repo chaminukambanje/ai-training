@@ -31,7 +31,10 @@ ALLOWED_DOMAINS = [
     "tldp.org", "man7.org", "amazon.com", "amazonaws.com", 
     "github.com", "vmware.com", "broadcom.com", "ubuntu.com", 
     "schedmd.com", "linuxfoundation.org", "jasmin.ac.uk",
-    "archer.ac.uk", "archer2.ac.uk", "ceda.ac.uk", "stfc.ac.uk"
+    "archer.ac.uk", "archer2.ac.uk", "ceda.ac.uk", "stfc.ac.uk",
+    "bbc.co.uk", "bbc.com", "zbc.co.zw", "zbcnews.co.zw",
+    "sabc.co.za", "sabcnews.com", "gov.uk", "gov.zw", "zim.gov.zw", "gov.za",
+    "opengroup.org"
 ]
 
 def is_authoritative_url(url: str) -> bool:
