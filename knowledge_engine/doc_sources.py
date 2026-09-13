@@ -149,5 +149,41 @@ DOCUMENTATION_TARGETS = {
             "https://ubuntu.com/server/docs/service-management",
             "https://ubuntu.com/server/docs/security-automatic-updates"
         ]
+    },
+    "jasmin": {
+        "domain": "help.jasmin.ac.uk",
+        "search_queries": [
+            "site:help.jasmin.ac.uk batch computing slurm on jasmin submitting jobs lotus",
+            "site:help.jasmin.ac.uk lotus queues partitions job submission sbatch srun",
+            "site:help.jasmin.ac.uk group workspaces gws multi petabyte storage ceda archive",
+            "site:help.jasmin.ac.uk jasmin software environments modules python jaspy",
+            "site:help.jasmin.ac.uk data transfer tools rsync globus dufs gridftp"
+        ],
+        "seed_urls": [
+            "https://help.jasmin.ac.uk/",
+            "https://help.jasmin.ac.uk/docs/batch-computing/slurm-on-jasmin/",
+            "https://help.jasmin.ac.uk/docs/batch-computing/submitting-jobs-with-slurm/",
+            "https://help.jasmin.ac.uk/docs/batch-computing/lotus-queues-and-partitions/",
+            "https://help.jasmin.ac.uk/docs/group-workspaces/overview/",
+            "https://help.jasmin.ac.uk/docs/software-on-jasmin/software-overview/",
+            "https://help.jasmin.ac.uk/docs/ceda-archive/archive-overview/"
+        ]
+    },
+    "archer": {
+        "domain": "archer.ac.uk / docs.archer2.ac.uk",
+        "search_queries": [
+            "site:docs.archer2.ac.uk user-guide scheduler slurm sbatch srun",
+            "site:docs.archer2.ac.uk quick-start quickstart-hpc batch jobs submission",
+            "site:docs.archer2.ac.uk user-guide parallel mpi openmp cray environment",
+            "site:docs.archer2.ac.uk user-guide storage filesystems work home nvme",
+            "site:archer.ac.uk/documentation/ user guide slurm hpc batch computing"
+        ],
+        "seed_urls": [
+            "http://archer.ac.uk/documentation/",
+            "https://docs.archer2.ac.uk/user-guide/scheduler/",
+            "https://docs.archer2.ac.uk/quick-start/quickstart-hpc/",
+            "https://docs.archer2.ac.uk/user-guide/storage/",
+            "https://docs.archer2.ac.uk/user-guide/parallel/"
+        ]
     }
 }

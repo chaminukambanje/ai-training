@@ -23,6 +23,8 @@ flowchart TD
         GH["GitHub Docs\n(Git, Actions, GH CLI, SSH)"]
         VM["VMware / Broadcom\n(ESXi 8.0, vSwitch, VLAN 4095, VMFS)"]
         UB["Ubuntu Server Docs\n(Netplan, UFW, APT, Security)"]
+        JA["JASMIN Help Docs\n(LOTUS Slurm, GWS, CEDA, Jaspy)"]
+        AR["ARCHER / ARCHER2\n(Cray, MPI, Lustre, HPC Sbatch)"]
         CM["Chaminuka Mbanje Profile\n(JASMIN, CEDA, STFC, NCAS, MCT)"]
     end
 
@@ -41,7 +43,7 @@ flowchart TD
         CLI["ai-trainer CLI & ai-search Client"]
     end
 
-    MS & RH & LX & AWS & GH & VM & UB & CM --> H
+    MS & RH & LX & AWS & GH & VM & UB & JA & AR & CM --> H
     H --> I
     I --> DB
     I --> S
