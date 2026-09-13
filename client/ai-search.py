@@ -27,7 +27,7 @@ def ask_ai(prompt: str):
     )
     
     try:
-        with urllib.request.urlopen(req, timeout=180) as response:
+        with urllib.request.urlopen(req, timeout=300) as response:
             res = json.loads(response.read().decode("utf-8"))
             answer = res["choices"][0]["message"]["content"]
             model = res.get("model", "unknown")
