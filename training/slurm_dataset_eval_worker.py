@@ -122,7 +122,7 @@ def query_ollama_model(prompt: str, model: str = "ai-cortex:latest") -> Optional
         "model": model,
         "prompt": prompt,
         "stream": False,
-        "options": {"num_predict": 128, "temperature": 0.2}
+        "options": {"num_predict": 64, "temperature": 0.2}
     }).encode("utf-8")
     req = urllib.request.Request(
         f"{OLLAMA_ENDPOINT}/api/generate",
@@ -131,7 +131,7 @@ def query_ollama_model(prompt: str, model: str = "ai-cortex:latest") -> Optional
     )
     try:
         t0 = time.time()
-        with urllib.request.urlopen(req, timeout=45) as resp:
+        with urllib.request.urlopen(req, timeout=90) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             elapsed = time.time() - t0
             return {
@@ -311,40 +311,51 @@ def main():
         t.start()
         threads.append(t)
 
+    def model_alignment_worker():
+        """Background thread for sampled model alignment queries."""
+        time.sleep(10)
+        while RUNNING:
+            try:
+                test_sample = shard_samples[int(time.time()) % len(shard_samples)]
+                u_prompt = next((m["content"] for m in test_sample.get("messages", []) if m.get("role") == "user"), "")
+                ref_resp = next((m["content"] for m in test_sample.get("messages", []) if m.get("role") == "assistant"), "")
+                if u_prompt and ref_resp:
+                    logger.info(f"Querying sampled alignment prompt against ai-cortex:latest: '{u_prompt[:60]}...'")
+                    model_res = query_ollama_model(u_prompt)
+                    if model_res:
+                        gen_text = model_res["response"]
+                        ref_toks = tokenize_words(ref_resp)
+                        cand_toks = tokenize_words(gen_text)
+                        rouge_l = calculate_rouge_lcs(ref_toks, cand_toks)
+                        with lock:
+                            if len(stats["model_alignment_samples"]) >= 10:
+                                stats["model_alignment_samples"].pop(0)
+                            stats["model_alignment_samples"].append({
+                                "timestamp": datetime.now().isoformat(),
+                                "prompt": u_prompt[:80],
+                                "rouge_l": rouge_l,
+                                "tokens_per_sec": model_res["tokens_per_sec"],
+                                "duration_sec": model_res["duration_sec"]
+                            })
+                        logger.info(f"Sampled Model Eval Result: ROUGE-L={rouge_l:.4f} | Speed={model_res['tokens_per_sec']} tok/s")
+            except Exception as e:
+                logger.warning(f"Alignment thread exception: {e}")
+            for _ in range(90):
+                if not RUNNING:
+                    break
+                time.sleep(1)
+
+    # Only node-01 executes sampled live model inference to prevent Ollama contention
+    if "01" in NODE_NAME:
+        t_align = threading.Thread(target=model_alignment_worker, daemon=True)
+        t_align.start()
+
     checkpoint_file = EVAL_RESULTS_DIR / f"eval_report_{NODE_NAME}.json"
     last_checkpoint = time.time()
-    last_model_sample = time.time() - 30 # Trigger first sample soon
 
     while RUNNING:
         time.sleep(10)
         sys_m = get_system_metrics(total_cores)
-        
-        # Sample live model alignment every 90 seconds (only on node-01 to avoid contention)
-        if "01" in NODE_NAME and (time.time() - last_model_sample >= 90):
-            test_sample = shard_samples[int(time.time()) % len(shard_samples)]
-            u_prompt = next((m["content"] for m in test_sample.get("messages", []) if m.get("role") == "user"), "")
-            ref_resp = next((m["content"] for m in test_sample.get("messages", []) if m.get("role") == "assistant"), "")
-            
-            if u_prompt and ref_resp:
-                logger.info(f"Querying sampled alignment prompt against ai-cortex:latest: '{u_prompt[:60]}...'")
-                model_res = query_ollama_model(u_prompt)
-                if model_res:
-                    gen_text = model_res["response"]
-                    ref_toks = tokenize_words(ref_resp)
-                    cand_toks = tokenize_words(gen_text)
-                    rouge_l = calculate_rouge_lcs(ref_toks, cand_toks)
-                    with lock:
-                        if len(stats["model_alignment_samples"]) >= 10:
-                            stats["model_alignment_samples"].pop(0)
-                        stats["model_alignment_samples"].append({
-                            "timestamp": datetime.now().isoformat(),
-                            "prompt": u_prompt[:80],
-                            "rouge_l": rouge_l,
-                            "tokens_per_sec": model_res["tokens_per_sec"],
-                            "duration_sec": model_res["duration_sec"]
-                        })
-                    logger.info(f"Sampled Model Eval Result: ROUGE-L={rouge_l:.4f} | Speed={model_res['tokens_per_sec']} tok/s")
-            last_model_sample = time.time()
 
         # Emit log heartbeat
         with lock:

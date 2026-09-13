@@ -152,8 +152,8 @@ def stop_all_workloads():
 def show_status():
     """Displays rich split cluster telemetry for both workloads."""
     jobs = get_live_cluster_jobs()
-    compute_cps = get_checkpoints_from_dir("/work/ai-cortex/checkpoints/checkpoint_node-*.json")
-    eval_cps = get_checkpoints_from_dir("/work/ai-cortex/eval_results/eval_report_node-*.json")
+    compute_cps = [cp for cp in get_checkpoints_from_dir("/work/ai-cortex/checkpoints/checkpoint_node-*.json") if cp.get("node") in ["node-03", "node-04"]]
+    eval_cps = [cp for cp in get_checkpoints_from_dir("/work/ai-cortex/eval_results/eval_report_node-*.json") if cp.get("node") in ["node-01", "node-02"]]
 
     print("\n" + "=" * 78)
     print(" ⚡ AI CORTEX MULTI-TASK SLURM CLUSTER TELEMETRY")
