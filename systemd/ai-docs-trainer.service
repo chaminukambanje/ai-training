@@ -1,0 +1,18 @@
+[Unit]
+Description=AI Cortex Autonomous Documentation Learner & Trainer
+After=network.target ai-cortex.service ollama.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/opt/ai-cortex/knowledge_engine
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/ai-cortex/venv/bin/python3 /opt/ai-cortex/knowledge_engine/auto_trainer.py --interval 1800
+Restart=always
+RestartSec=30
+StandardOutput=append:/opt/ai-cortex/data/training_learner.log
+StandardError=append:/opt/ai-cortex/data/training_learner.log
+
+[Install]
+WantedBy=multi-user.target

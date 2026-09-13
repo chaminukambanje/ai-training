@@ -1,0 +1,16 @@
+[Unit]
+Description=AI Cortex AGY Gemini Grounded LLM Server
+After=network.target ollama.service
+Wants=ollama.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ai-cortex
+EnvironmentFile=-/opt/ai-cortex/.env
+ExecStart=/opt/ai-cortex/venv/bin/uvicorn server.agy_server:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

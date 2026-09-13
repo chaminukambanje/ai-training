@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# AI Cortex Autonomous Training & Knowledge Management CLI
+# Usage:
+#   ai-trainer status
+#   ai-trainer cycle
+#   ai-trainer logs
+#   ai-trainer ask "<query>"
+
+set -e
+
+VENV_PY="/opt/ai-cortex/venv/bin/python3"
+KNOWLEDGE_DIR="/opt/ai-cortex/knowledge_engine"
+LOG_FILE="/opt/ai-cortex/data/training_learner.log"
+
+case "$1" in
+    status)
+        echo "=== AI Cortex Autonomous Learning Server Status ==="
+        systemctl status ai-docs-trainer --no-pager | head -n 12
+        echo ""
+        echo "=== Knowledge Base Telemetry ==="
+        curl -s http://127.0.0.1:8000/health | $VENV_PY -m json.tool
+        echo ""
+        echo "=== Ollama Model Information ==="
+        ollama list | grep -E "NAME|ai-cortex"
+        ;;
+    cycle)
+        echo "Triggering immediate unattended learning & training cycle..."
+        sudo -u root PYTHONPATH=$KNOWLEDGE_DIR $VENV_PY $KNOWLEDGE_DIR/auto_trainer.py --once
+        ;;
+    logs)
+        tail -n 50 -f $LOG_FILE
+        ;;
+    ask)
+        shift
+        PROMPT="$*"
+        if [ -z "$PROMPT" ]; then
+            echo "Usage: ai-trainer ask \"<question>\""
+            exit 1
+        fi
+        echo "Querying AI Cortex Grounded Model..."
+        curl -s http://127.0.0.1:8000/v1/chat/completions \
+            -H "Content-Type: application/json" \
+            -d "{\"messages\": [{\"role\": \"user\", \"content\": \"$PROMPT\"}], \"require_verification\": false}" \
+            | $VENV_PY -c 'import sys, json; data=json.load(sys.stdin); print("\n" + data["choices"][0]["message"]["content"] + "\n")'
+        ;;
+    *)
+        echo "AI Cortex Autonomous Documentation Trainer"
+        echo "Commands:"
+        echo "  ai-trainer status      - View live telemetry, indexed docs, and training stats"
+        echo "  ai-trainer cycle       - Run an immediate training & learning cycle unattended"
+        echo "  ai-trainer logs        - Tail live background learning and training logs"
+        echo "  ai-trainer ask <query> - Test model retrieval and grounded response"
+        ;;
+esac
